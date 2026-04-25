@@ -4,8 +4,28 @@ import torch.nn.functional as F
 
 
 # Autoencoder architecture inspired by https://arxiv.org/abs/1711.00117
+class Autoencoder(nn.Module):
+    def __init__(self):
+        super().__init__()
 
+        self.encoder = nn.Sequential(
+            nn.Linear(28*28, 128),
+            nn.ReLU(),
+            nn.Linear(128, 64)
+        )
 
+        self.decoder = nn.Sequential(
+            nn.Linear(64, 128),
+            nn.ReLU(),
+            nn.Linear(128, 28*28),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        x = x.view(-1, 28*28)
+        z = self.encoder(x)
+        out = self.decoder(z)
+        return out.view(-1, 1, 28, 28)
 
 # VAE-GAN architecture inspired by https://arxiv.org/abs/1711.00117
 class ConvVAE64(nn.Module):
