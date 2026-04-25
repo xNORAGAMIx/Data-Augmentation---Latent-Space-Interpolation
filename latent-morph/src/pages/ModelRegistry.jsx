@@ -9,26 +9,30 @@ const MODELS = [
     id: "autoencoder",
     name: "Autoencoder",
     type: "AE",
-    desc: "Basic reconstruction model without latent regularization",
+    desc: "Learns direct input reconstruction using a compressed latent vector. The latent space is unstructured, so interpolation is linear but often not semantically meaningful, leading to unstable morphing.",
+    status: "Ready",
   },
   {
     id: "vae",
     name: "Variational Autoencoder",
     type: "VAE",
-    desc: "Structured latent space with KL divergence",
+    desc: "Introduces a probabilistic latent space using KL divergence, enforcing a smooth Gaussian distribution. Enables meaningful interpolation between digits, but often produces slightly blurry outputs.",
+    status: "In Progress",
   },
   {
     id: "conv_vae",
-    name: "Conv VAE",
+    name: "Convolutional VAE",
     type: "VAE",
-    desc: "Convolutional encoder-decoder for better spatial learning",
+    desc: "Uses convolutional layers to better capture spatial structure in images. Produces sharper and more coherent digits than fully connected VAE while preserving a smooth latent space for interpolation.",
+    status: "In Progress",
   },
   {
     id: "vae_gan",
     name: "VAE + GAN",
     type: "Hybrid",
-    desc: "Combines VAE structure with GAN realism",
-  },
+    desc: "Combines VAE’s structured latent space with a GAN discriminator to improve visual realism. Produces sharper and more detailed digits while maintaining smooth interpolation.",
+    status: "Ready",
+  }
 ];
 
 export default function ModelRegistry() {
@@ -84,43 +88,10 @@ export default function ModelRegistry() {
               <div className="flex gap-4 mt-4 text-sm">
                 <Info label="Type" value={current.type} />
                 <Info label="Architecture" value="Encoder-Decoder" />
-                <Info label="Status" value="Ready" />
+                <Info label="Status" value={current.status} />
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="bg-white border rounded p-4 flex flex-col gap-3">
-              <h2 className="text-sm font-semibold">
-                Actions
-              </h2>
-
-              <button className="bg-primary text-white py-2 rounded hover:opacity-90 transition">
-                Run Morph with Model
-              </button>
-
-              <button className="border py-2 rounded hover:bg-gray-50 transition">
-                Compare Mode (Coming Soon)
-              </button>
-            </div>
-
-          </div>
-
-          {/* ===== OPTIONAL COMPARE PREVIEW ===== */}
-          <div className="bg-white border rounded p-4">
-            <h2 className="text-sm font-semibold mb-3">
-              Model Comparison Preview
-            </h2>
-
-            <div className="grid grid-cols-4 gap-4">
-              {MODELS.map((m) => (
-                <div
-                  key={m.id}
-                  className="h-32 bg-gray-50 rounded flex items-center justify-center text-xs text-gray-400"
-                >
-                  {m.name}
-                </div>
-              ))}
-            </div>
           </div>
 
         </div>
