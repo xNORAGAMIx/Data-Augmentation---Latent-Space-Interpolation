@@ -89,8 +89,12 @@ def generate_morph(model, config, imgA, imgB, steps=50, return_frames=False):
             muA, _ = model.encode(imgA)
             muB, _ = model.encode(imgB)
         else:  # autoencoder
-            muA = model.encoder(imgA)
-            muB = model.encoder(imgB)
+            # flatten for Autoencoder
+            imgA_flat = imgA.view(imgA.size(0), -1)
+            imgB_flat = imgB.view(imgB.size(0), -1)
+
+            muA = model.encoder(imgA_flat)
+            muB = model.encoder(imgB_flat)
 
     frames = []
     encoded_frames = []
@@ -113,6 +117,7 @@ def generate_morph(model, config, imgA, imgB, steps=50, return_frames=False):
                 recon = model.decode(z)
             else:
                 recon = model.decoder(z)
+                recon = recon.view(-1, 1, 28, 28)
 
         img = recon.cpu().squeeze().numpy()
         img = (img - img.min()) / (img.max() - img.min() + 1e-8)
