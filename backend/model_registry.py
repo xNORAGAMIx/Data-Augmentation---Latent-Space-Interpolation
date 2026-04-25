@@ -1,5 +1,5 @@
 import torch
-from model import Autoencoder, VAE, ConvVAE64
+from model import Autoencoder, ConvVAE64
 
 device = torch.device("cpu")
 
@@ -9,11 +9,11 @@ MODEL_REGISTRY = {
         "path": "models/autoencoder.pth",
         "type": "ae"
     },
-    "vae": {
-        "class": VAE,
-        "path": "models/vae.pth",
-        "type": "vae"
-    },
+    # "vae": {
+    #     "class": VAE,
+    #     "path": "models/vae.pth",
+    #     "type": "vae"
+    # },
     "conv_vae": {
         "class": ConvVAE64,
         "path": "models/conv_vae.pth",
@@ -28,10 +28,10 @@ MODEL_REGISTRY = {
 
 _loaded_models = {}
 
-def get_model(model_name: str):
+def get_model(model_name):
 
     if model_name not in MODEL_REGISTRY:
-        raise ValueError(f"Model '{model_name}' not found")
+        raise ValueError("Invalid model")
 
     if model_name in _loaded_models:
         return _loaded_models[model_name]
@@ -42,6 +42,6 @@ def get_model(model_name: str):
     model.load_state_dict(torch.load(config["path"], map_location=device))
     model.eval()
 
-    _loaded_models[model_name] = model
+    _loaded_models[model_name] = (model, config)
 
-    return model, config    
+    return model, config
