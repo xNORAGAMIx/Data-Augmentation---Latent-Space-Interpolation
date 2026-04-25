@@ -57,6 +57,6 @@ class LatentRequest(BaseModel):
 @app.post("/decode")
 def decode(req: LatentRequest):
 
-    model, _ = get_model(req.model_name)
+    model, config = get_model(req.model_name)
 
-    return decode_latent(model, req.z)
+    return decode_latent(model, config, req.z)

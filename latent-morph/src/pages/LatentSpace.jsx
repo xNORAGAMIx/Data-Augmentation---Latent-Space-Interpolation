@@ -3,10 +3,12 @@ import { decodeLatent } from "../api/latentApi";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import CanvasOverlay from "../components/CanvasOverlay";
+import { useMorphStore } from "../store/useMorphStore";
 
 const LATENT_DIM = 64;
 
 export default function LatentSpace() {
+    const { selectedModel } = useMorphStore();
     const [z, setZ] = useState(Array(LATENT_DIM).fill(0));
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -19,7 +21,7 @@ export default function LatentSpace() {
 
     const handleDecode = async () => {
         setLoading(true);
-        const img = await decodeLatent(z);
+        const img = await decodeLatent(z, selectedModel);
         setImage(img);
         setLoading(false);
     };

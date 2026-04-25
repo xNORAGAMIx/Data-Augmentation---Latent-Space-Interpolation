@@ -170,12 +170,16 @@ def generate_morph(model, config, imgA, imgB, steps=50, return_frames=False):
 # LATENT DECODE
 # =========================
 
-def decode_latent(model, z):
+def decode_latent(model, config, z):
 
     z = torch.tensor(z, dtype=torch.float32).unsqueeze(0).to(device)
 
     with torch.no_grad():
-        recon = model.decode(z)
+        if config["type"] == "vae":
+            recon = model.decode(z)
+        else:  # autoencoder
+            recon = model.decoder(z)
+            recon = recon.view(-1, 1, 28, 28)
 
     img = recon.cpu().squeeze().numpy()
     img = (img - img.min()) / (img.max() - img.min() + 1e-8)
@@ -187,7 +191,6 @@ def decode_latent(model, z):
     buffer = BytesIO()
     pil_img.save(buffer, format="PNG")
 
-    # encode to base64
     encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
     return {
