@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+.env
+.venv
+env/
+venv/
+ENV/
+
+
+# Data & Models
+data/
+models/*.pkl
+models/*.h5
+models/*.pt
+models/*.pth
+models/*.onnx
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+
+.vscode/
+.idea/
+*.db
+*.log
+
+*.pth
+

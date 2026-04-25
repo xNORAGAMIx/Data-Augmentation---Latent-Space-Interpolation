@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --color-surface: #f7f9fb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container: #eceef0;
+  --color-surface-container-highest: #e0e3e5;
+
+  --color-primary: #00687a;
+  --color-primary-container: #06b6d4;
+
+  --color-outline: #6d797d;
+  --color-outline-variant: #bcc9cd;
+
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #3d494c;
+
+  --font-sans: "Space Grotesk", sans-serif;
+}
+
+* {
+  transition: all 0.15s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Track */
+.latent-slider {
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+/* Thumb */
+.latent-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid white;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+/* Hover effect */
+.latent-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Firefox */
+.latent-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: none;
+  cursor: pointer;
+}
+
