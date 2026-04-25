@@ -4,6 +4,7 @@ export const generateMorph = async ({ imgA, imgB, steps }) => {
   formData.append("imgA", imgA);
   formData.append("imgB", imgB);
   formData.append("steps", steps);
+  formData.append("model_name", selectedModel);
   formData.append("return_frames", true);
 
   const res = await fetch("http://127.0.0.1:8000/morph", {

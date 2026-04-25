@@ -13,6 +13,10 @@ export const useMorphStore = create((set, get) => ({
   gif: null,
   loading: false,
 
+  selectedModel: "vae_gan",
+
+  setModel: (model) => set({ selectedModel: model }),
+
   setFrames: (frames) => set({ frames }),
 
   setSource: (file) => set({ source: file }),

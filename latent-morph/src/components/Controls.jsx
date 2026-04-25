@@ -1,7 +1,6 @@
 import { useMorphStore } from "../store/useMorphStore";
 import VectorAnchorCard from "./VectorAnchorCard";
 import SliderControl from "./SliderControl";
-import ToggleSwitch from "./ToggleSwitch";
 import { generateMorph } from "../api/morphApi";
 
 export default function Controls() {
@@ -13,10 +12,7 @@ export default function Controls() {
     setTarget,
     steps,
     setSteps,
-    aiEnhance,
-    smoothing,
-    toggleEnhance,
-    toggleSmoothing,
+    selectedModel,
     setGif,
     setLoading,
     frames
