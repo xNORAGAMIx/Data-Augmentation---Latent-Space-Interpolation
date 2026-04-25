@@ -51,24 +51,24 @@ export default function Controls() {
     }
   };
 
+  const isDisabled = frames.length !== 0;
+
   return (
-    <div className="w-[320px] flex flex-col gap-4 overflow-y-auto">
-
+    <div className="w-[320px] flex flex-col gap-5 overflow-y-auto p-1">
       {/* Vector Anchors */}
-      <div className={`bg-white border p-4 space-y-3 ${frames.length != 0
-        ? "opacity-50 cursor-not-allowed bg-gray-100 text-gray-400 border-gray-300"
-        : "hover:bg-surface cursor-pointer"
-        }`}>
-        <h2 className="text-sm font-semibold">Vector Anchors</h2>
-
-        <div className="grid grid-cols-2 gap-3">
+      <div className={`glass-card p-5 space-y-4 ${isDisabled ? "opacity-50 pointer-events-none" : ""}`}>
+        <h2 className="text-sm font-semibold text-on-surface flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px] text-primary">anchor</span>
+          Vector Anchors
+        </h2>
+        
+        <div className="grid grid-cols-2 gap-4">
           <VectorAnchorCard
             label="Source (A)"
             image={source}
             setImage={setSource}
             id="VEC-8492"
           />
-
           <VectorAnchorCard
             label="Target (B)"
             image={target}
@@ -78,15 +78,17 @@ export default function Controls() {
       </div>
 
       {/* Slider */}
-      <div className={`bg-white border p-4 ${frames.length != 0
-        ? "opacity-50 cursor-not-allowed bg-gray-100 text-gray-400 border-gray-300"
-        : "hover:bg-surface cursor-pointer"
-        }`}>
+      <div className={`glass-card p-5 ${isDisabled ? "opacity-50 pointer-events-none" : ""}`}>
         <SliderControl value={steps} setValue={setSteps} />
       </div>
 
-      <div className="bg-white border p-4 space-y-3">
-        <h2 className="text-sm font-semibold">Labels (for augmentation)</h2>
+      {/* Labels */}
+      <div className="glass-card p-5 space-y-4">
+        <h2 className="text-sm font-semibold flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px] text-primary">label</span>
+          Labels
+          <span className="badge ml-auto">augmentation</span>
+        </h2>
 
         <div className="flex gap-3">
           <input
@@ -96,9 +98,8 @@ export default function Controls() {
             placeholder="Source label"
             value={labelStart ?? ""}
             onChange={(e) => setLabelStart(Number(e.target.value))}
-            className="w-full border rounded px-2 py-1 text-sm"
+            className="input-field"
           />
-
           <input
             type="number"
             min="0"
@@ -106,17 +107,21 @@ export default function Controls() {
             placeholder="Target label"
             value={labelEnd ?? ""}
             onChange={(e) => setLabelEnd(Number(e.target.value))}
-            className="w-full border rounded px-2 py-1 text-sm"
+            className="input-field"
           />
         </div>
 
-        <p className="text-xs text-gray-500">
+        <p className="text-[11px] text-on-surface-variant/70">
           Optional: enables soft-label dataset export
         </p>
       </div>
 
-      {/* Button */}
-      <button onClick={handleGenerate} className="px-4 py-2 rounded bg-blue-400 text-black hover:bg-[var(--color-primary)]-container transition-all duration-200 active:scale-95">
+      {/* Generate Button */}
+      <button 
+        onClick={handleGenerate} 
+        className="btn-primary w-full py-3 text-sm font-medium"
+      >
+        <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
         Generate Sequence
       </button>
     </div>

@@ -6,19 +6,22 @@ import Timeline from "../components/Timeline";
 
 export default function Morphology() {
   return (
-    <div className="flex h-screen bg-[var(--color-surface)] text-[var(--color-on-surface)]">
+    <div className="flex h-screen bg-surface-container text-on-surface">
       <Sidebar />
 
       <div className="flex flex-col flex-1 ml-64">
         <Topbar />
 
-        <div className="flex flex-1 p-6 gap-6 overflow-hidden">
+        <main className="flex flex-1 p-6 gap-6 overflow-hidden">
+          {/* Controls Panel */}
           <Controls />
-          <div className="flex flex-col flex-1">
+          
+          {/* Canvas & Timeline */}
+          <div className="flex flex-col flex-1 gap-4 min-w-0">
             <Canvas />
             <Timeline />
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

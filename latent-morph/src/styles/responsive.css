@@ -1,0 +1,147 @@
+/* Responsive Design */
+
+/* Mobile First Breakpoints */
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Mobile Devices (default) */
+/* No media query needed - base styles are mobile-first */
+
+/* Small tablets and large phones */
+@media (min-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .container {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  
+  .container {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+  
+  /* Sidebar adjustments */
+  .sidebar {
+    width: 16rem;
+  }
+  
+  .main-content {
+    margin-left: 16rem;
+  }
+}
+
+/* Small desktops */
+@media (min-width: 1024px) {
+  .container {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+    max-width: var(--breakpoint-xl);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Grid layouts */
+  .grid-cols-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Large desktops */
+@media (min-width: 1280px) {
+  .container {
+    max-width: var(--breakpoint-xl);
+  }
+  
+  .grid-cols-responsive {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Extra large desktops */
+@media (min-width: 1536px) {
+  .container {
+    max-width: var(--breakpoint-2xl);
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  /* Stack elements vertically */
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Full-width buttons */
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Adjust spacing */
+  .card,
+  .glass-card {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+  
+  /* Typography scaling */
+  h1 { font-size: var(--font-size-2xl); }
+  h2 { font-size: var(--font-size-xl); }
+  h3 { font-size: var(--font-size-lg); }
+  
+  /* Hide elements on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  /* Show mobile-only elements */
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* Tablet and up only */
+@media (min-width: 768px) {
+  .hide-desktop {
+    display: none !important;
+  }
+  
+  .show-desktop {
+    display: block !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .glass-card {
+    background: white;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

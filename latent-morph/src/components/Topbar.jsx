@@ -2,7 +2,6 @@ import { useMorphStore } from "../store/useMorphStore";
 import JSZip from "jszip";
 
 export default function Topbar() {
-
   const { frames, resetAll, labelStart, labelEnd } = useMorphStore();
 
   const downloadDataset = async () => {
@@ -60,83 +59,76 @@ export default function Topbar() {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-3 border-b border-[var(--color-outline)]-variant bg-[var(--color-surface)]-container-lowest sticky top-0 z-50">
-
-      {/* Left - Brand */}
-      <div className="flex items-center gap-3">
-        <span className="material-symbols-outlined text-primary text-[24px]">
-          scatter_plot
-        </span>
-        <span className="text-xl font-semibold tracking-tight">
-          Latent Morph
-        </span>
-      </div>
-
-      {/* Right Section */}
-      <div className="flex items-center gap-6">
-
-        {/* Search */}
-        <div className="relative hidden md:flex items-center">
-          <span className="material-symbols-outlined absolute left-3 text-[var(--color-on-surface)]-variant text-[18px]">
-            search
-          </span>
-
-          <input
-            type="text"
-            placeholder="Search parameters..."
-            className="pl-10 pr-4 py-2 w-64 bg-white border border-[var(--color-outline)]-variant rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
-          />
-        </div>
-
-        {/* Export Button */}
-        <div className="flex gap-2">
-
-          <button
-            onClick={downloadDataset}
-            disabled={!frames || frames.length === 0}
-            className={`px-4 py-2 border rounded transition
-    ${!frames || frames.length === 0
-                ? "opacity-50 cursor-not-allowed bg-gray-100 text-gray-400 border-gray-300"
-                : "hover:bg-surface cursor-pointer"
-              }
-  `}
-          >
-            Export Dataset
-          </button>
-
-
-          <button
-            onClick={resetAll}
-            className="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded hover:bg-red-50 text-red-500 transition"
-          >
-            <span className="material-symbols-outlined text-[18px]">
-              restart_alt
+    <header className="glass-card-strong sticky top-0 z-50">
+      <div className="flex justify-between items-center px-6 py-3">
+        {/* Left - Brand */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+            <span className="material-symbols-outlined gradient-text text-[24px]">
+              scatter_plot
             </span>
-            Reset
-          </button>
-
+          </div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-semibold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Latent Morph
+            </span>
+          </div>
         </div>
 
-        {/* Icons */}
-        <div className="flex items-center gap-2 border-l pl-4">
-          {["notifications", "settings", "help"].map((icon) => (
+        {/* Right Section */}
+        <div className="flex items-center gap-4">
+          {/* Search */}
+          <div className="relative hidden md:flex items-center">
+            <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px] pointer-events-none">
+              search
+            </span>
+            <input
+              type="text"
+              placeholder="Search parameters..."
+              className="search-input"
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2">
             <button
-              key={icon}
-              className="p-2 rounded hover:bg-[var(--color-surface)] transition"
+              onClick={downloadDataset}
+              disabled={!frames || frames.length === 0}
+              className="btn-secondary"
             >
-              <span className="material-symbols-outlined text-[20px]">
-                {icon}
-              </span>
+              <span className="material-symbols-outlined text-[16px]">download</span>
+              <span className="hidden sm:inline">Export</span>
             </button>
-          ))}
-        </div>
+            
+            <button
+              onClick={resetAll}
+              className="btn-danger"
+            >
+              <span className="material-symbols-outlined text-[16px]">
+                restart_alt
+              </span>
+              <span className="hidden sm:inline">Reset</span>
+            </button>
+          </div>
 
-        {/* Profile */}
-        <div className="w-8 h-8 rounded-full border overflow-hidden cursor-pointer">
-          <img
-            src="https://i.pravatar.cc/100"
-            className="w-full h-full object-cover"
-          />
+          {/* Icon Buttons */}
+          <div className="hidden sm:flex items-center gap-1 border-l border-outline pl-4">
+            {["notifications", "settings", "help"].map((icon) => (
+              <button key={icon} className="icon-btn">
+                <span className="material-symbols-outlined text-[20px]">
+                  {icon}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Profile */}
+          <div className="avatar">
+            <img
+              src="https://i.pravatar.cc/100"
+              alt="Profile"
+            />
+          </div>
         </div>
       </div>
     </header>

@@ -2,39 +2,27 @@ export default function ModelCard({ model, selected, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`relative border rounded p-4 cursor-pointer transition-all duration-200
-        ${
-          selected
-            ? "border-primary bg-primary/10 shadow-md scale-[1.02]"
-            : "border-gray-200 hover:bg-gray-50"
-        }
-      `}
+      className={`card cursor-pointer relative transition-all duration-200 hover-lift active-press ${
+        selected
+          ? "border-primary bg-primary/5 shadow-lg ring-1 ring-primary/20"
+          : "hover:border-outline-variant"
+      }`}
     >
       {/* Selected Indicator */}
       {selected && (
-        <div className="absolute top-2 right-2">
-          <span className="material-symbols-outlined text-primary text-[18px]">
+        <div className="absolute top-3 right-3">
+          <span className="material-symbols-outlined text-primary text-[20px] animate-scale-in">
             check_circle
           </span>
         </div>
       )}
 
       {/* Content */}
-      <h3 className="text-sm font-semibold">{model.name}</h3>
-
-      <p className="text-xs text-gray-500 mt-1">
-        {model.desc}
-      </p>
-
-      <span
-        className={`text-[10px] mt-3 inline-block px-2 py-1 rounded
-          ${
-            selected
-              ? "bg-primary text-white"
-              : "bg-gray-100 text-gray-600"
-          }
-        `}
-      >
+      <h3 className="text-sm font-semibold text-on-surface mb-2">{model.name}</h3>
+      <p className="text-xs text-on-surface-variant mb-3 leading-relaxed">{model.desc}</p>
+      
+      <span className={`badge ${selected ? "badge-primary" : ""}`}>
+        <span className="material-symbols-outlined text-[12px]">code</span>
         {model.type}
       </span>
     </div>

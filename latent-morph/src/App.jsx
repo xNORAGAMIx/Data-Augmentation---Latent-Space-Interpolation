@@ -6,6 +6,12 @@ import TrainingLoss from "./pages/TrainingLoss";
 import ModelRegistry from "./pages/ModelRegistry";
 import Dataset from "./pages/Dataset";
 
+import './styles/animations.css';
+import './styles/components.css';
+import './styles/design-tokens.css';
+import './styles/global.css';
+import './styles/responsive.css';
+
 function App() {
   return (
     <BrowserRouter>

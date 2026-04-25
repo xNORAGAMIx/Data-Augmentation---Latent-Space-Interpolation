@@ -1,8 +1,8 @@
 export default function InfoItem({ label, value }) {
   return (
-    <div className="flex justify-between text-sm">
-      <span className="text-gray-500">{label}</span>
-      <span className="font-medium">{value}</span>
+    <div className="flex justify-between items-center text-sm py-1">
+      <span className="text-on-surface-variant">{label}</span>
+      <span className="font-medium text-on-surface">{value}</span>
     </div>
   );
 }

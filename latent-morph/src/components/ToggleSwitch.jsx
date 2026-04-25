@@ -1,20 +1,24 @@
 export default function ToggleSwitch({ enabled, toggle, label }) {
   return (
     <div className="flex justify-between items-center">
-      <span>{label}</span>
+      <span className="text-sm text-on-surface">{label}</span>
 
-      <div
+      <button
         onClick={toggle}
-        className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition ${
-          enabled ? "bg-[var(--color-primary)]" : "bg-gray-300"
+        role="switch"
+        aria-checked={enabled}
+        className={`w-11 h-6 flex items-center rounded-full p-0.5 cursor-pointer transition-all duration-200 ${
+          enabled 
+            ? "bg-gradient-to-r from-primary to-accent" 
+            : "bg-outline-variant"
         }`}
       >
         <div
-          className={`w-4 h-4 bg-white rounded-full shadow transform transition ${
-            enabled ? "translate-x-5" : ""
+          className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200 ${
+            enabled ? "translate-x-5" : "translate-x-0"
           }`}
         />
-      </div>
+      </button>
     </div>
   );
 }
