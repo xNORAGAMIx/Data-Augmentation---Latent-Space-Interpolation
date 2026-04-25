@@ -15,6 +15,12 @@ export const useMorphStore = create((set, get) => ({
 
   selectedModel: "vae_gan",
 
+  labelStart: null,
+  labelEnd: null,
+
+  setLabelStart: (label) => set({ labelStart: label }),
+  setLabelEnd: (label) => set({ labelEnd: label }),
+
   setModel: (model) => set({ selectedModel: model }),
 
   setFrames: (frames) => set({ frames }),
@@ -48,6 +54,8 @@ export const useMorphStore = create((set, get) => ({
       target: null,
       currentFrame: 0,
       isPlaying: false,
+      labelStart: null,   
+      labelEnd: null,
     }),
 
 }));

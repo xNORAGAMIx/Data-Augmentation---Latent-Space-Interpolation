@@ -38,22 +38,33 @@ export default function GeneratedDataset() {
           {/* Grid */}
           <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
 
-            {frames.map((frame, i) => (
-              <div
-                key={i}
-                className="relative group aspect-square border border-outline-variant rounded-md overflow-hidden bg-[var(--color-surface)] hover:shadow-md transition"
-              >
-                <img
-                  src={frame}
-                  className="w-full h-full object-contain"
-                />
+            {frames.map((frame, i) => {
+              const alpha = i / (frames.length - 1);
 
-                {/* Frame index */}
-                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-[10px] text-white text-center opacity-0 group-hover:opacity-100 transition">
-                  #{i}
+              let label = "Transition";
+              if (i === 0) label = "Source";
+              else if (i === frames.length - 1) label = "Target";
+
+              return (
+                <div
+                  key={i}
+                  className="relative group aspect-square border border-outline-variant rounded-md overflow-hidden bg-[var(--color-surface)] hover:shadow-md transition"
+                >
+                  {/* Image */}
+                  <img
+                    src={frame}
+                    className="w-full h-full object-contain"
+                  />
+
+                  {/* Hover Info */}
+                  <div className="absolute inset-0 bg-black/60 text-white text-[10px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    <span>#{i}</span>
+                    <span>α = {alpha.toFixed(2)}</span>
+                    <span>{label}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
           </div>
 

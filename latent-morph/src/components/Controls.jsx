@@ -15,7 +15,11 @@ export default function Controls() {
     selectedModel,
     setGif,
     setLoading,
-    frames
+    frames,
+    labelStart,
+    labelEnd,
+    setLabelStart,
+    setLabelEnd,
   } = useMorphStore();
 
   console.log(selectedModel);
@@ -79,6 +83,36 @@ export default function Controls() {
         : "hover:bg-surface cursor-pointer"
         }`}>
         <SliderControl value={steps} setValue={setSteps} />
+      </div>
+
+      <div className="bg-white border p-4 space-y-3">
+        <h2 className="text-sm font-semibold">Labels (for augmentation)</h2>
+
+        <div className="flex gap-3">
+          <input
+            type="number"
+            min="0"
+            max="9"
+            placeholder="Source label"
+            value={labelStart ?? ""}
+            onChange={(e) => setLabelStart(Number(e.target.value))}
+            className="w-full border rounded px-2 py-1 text-sm"
+          />
+
+          <input
+            type="number"
+            min="0"
+            max="9"
+            placeholder="Target label"
+            value={labelEnd ?? ""}
+            onChange={(e) => setLabelEnd(Number(e.target.value))}
+            className="w-full border rounded px-2 py-1 text-sm"
+          />
+        </div>
+
+        <p className="text-xs text-gray-500">
+          Optional: enables soft-label dataset export
+        </p>
       </div>
 
       {/* Button */}

@@ -3,30 +3,59 @@ import JSZip from "jszip";
 
 export default function Topbar() {
 
-  const { frames, resetAll } = useMorphStore();
+  const { frames, resetAll, labelStart, labelEnd } = useMorphStore();
 
-  const downloadFrames = async () => {
+  const downloadDataset = async () => {
     if (!frames || frames.length === 0) {
       alert("No frames available");
       return;
     }
 
     const zip = new JSZip();
-    const folder = zip.folder("frames");
+    const folder = zip.folder("dataset");
 
-    const promises = frames.map(async (frame, index) => {
+    const labels = [];
+
+    const promises = frames.map(async (frame, i) => {
       const res = await fetch(frame);
       const blob = await res.blob();
-      folder.file(`frame_${index}.png`, blob);
+
+      const filename = `frame_${i}.png`;
+      folder.file(filename, blob);
+
+      const alpha = i / (frames.length - 1);
+
+      let labelData = null;
+
+      if (labelStart !== null && labelEnd !== null) {
+        labelData = {
+          [labelStart]: Number((1 - alpha).toFixed(3)),
+          [labelEnd]: Number(alpha.toFixed(3)),
+        };
+      }
+
+      labels.push({
+        frame: filename,
+        alpha: Number(alpha.toFixed(3)),
+        relation:
+          i === 0
+            ? "source"
+            : i === frames.length - 1
+              ? "target"
+              : "intermediate",
+        label: labelData,
+      });
     });
 
     await Promise.all(promises);
+
+    zip.file("labels.json", JSON.stringify(labels, null, 2));
 
     const content = await zip.generateAsync({ type: "blob" });
 
     const link = document.createElement("a");
     link.href = URL.createObjectURL(content);
-    link.download = "frames.zip";
+    link.download = "dataset.zip";
     link.click();
   };
 
@@ -63,7 +92,7 @@ export default function Topbar() {
         <div className="flex gap-2">
 
           <button
-            onClick={downloadFrames}
+            onClick={downloadDataset}
             disabled={!frames || frames.length === 0}
             className={`px-4 py-2 border rounded transition
     ${!frames || frames.length === 0
@@ -72,7 +101,7 @@ export default function Topbar() {
               }
   `}
           >
-            Export Frames
+            Export Dataset
           </button>
 
 
