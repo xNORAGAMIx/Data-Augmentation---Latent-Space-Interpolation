@@ -18,6 +18,8 @@ export default function Controls() {
     frames
   } = useMorphStore();
 
+  console.log(selectedModel);
+
   const handleGenerate = async () => {
     if (!source || !target) {
       alert("Upload both images");
@@ -31,7 +33,8 @@ export default function Controls() {
         imgA: source,
         imgB: target,
         steps,
-        fps: 10,
+        selectedModel,
+        fps: 24,
       });
 
       setFrames(result.frames);

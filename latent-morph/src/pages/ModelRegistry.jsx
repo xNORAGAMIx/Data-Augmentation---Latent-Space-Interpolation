@@ -1,8 +1,8 @@
-import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import ModelCard from "../components/ModelCard";
 import Info from "../components/Info";
+import { useMorphStore } from "../store/useMorphStore";
 
 const MODELS = [
   {
@@ -32,7 +32,7 @@ const MODELS = [
 ];
 
 export default function ModelRegistry() {
-  const [selectedModel, setSelectedModel] = useState("vae_gan");
+  const { selectedModel, setModel } = useMorphStore();
 
   const current = MODELS.find((m) => m.id === selectedModel);
 
@@ -62,7 +62,7 @@ export default function ModelRegistry() {
                 key={model.id}
                 model={model}
                 selected={selectedModel === model.id}
-                onClick={() => setSelectedModel(model.id)}
+                onClick={() => setModel(model.id)}
               />
             ))}
 

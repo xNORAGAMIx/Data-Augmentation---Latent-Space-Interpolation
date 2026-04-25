@@ -1,4 +1,4 @@
-export const generateMorph = async ({ imgA, imgB, steps }) => {
+export const generateMorph = async ({ imgA, imgB, steps, selectedModel }) => {
   const formData = new FormData();
 
   formData.append("imgA", imgA);
