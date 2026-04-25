@@ -17,20 +17,40 @@ def preprocess_image_ae(img):
     img = img.convert("L")
     img = np.array(img)
 
-    # invert if needed
+    # normalize contrast
+    img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+
+    # invert
     if np.mean(img) > 127:
         img = 255 - img
 
     # threshold
-    _, img = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
+    _, img = cv2.threshold(img, 80, 255, cv2.THRESH_BINARY)
 
-    # resize directly to 28x28
-    img = cv2.resize(img, (28, 28))
+    # THIN strokes (VERY IMPORTANT)
+    img = cv2.erode(img, np.ones((2,2), np.uint8), iterations=1)
 
-    img = img / 255.0
+    # bounding box
+    coords = cv2.findNonZero(img)
+    if coords is not None:
+        x, y, w, h = cv2.boundingRect(coords)
+        img = img[y:y+h, x:x+w]
 
-    tensor = torch.tensor(img, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
-    return tensor
+    # resize to MNIST scale (~20px digit)
+    h, w = img.shape
+    scale = 20.0 / max(h, w)
+    img = cv2.resize(img, (int(w*scale), int(h*scale)))
+
+    # center in 28x28
+    padded = np.zeros((28, 28), dtype=np.uint8)
+    h, w = img.shape
+    y_off = (28 - h) // 2
+    x_off = (28 - w) // 2
+    padded[y_off:y_off+h, x_off:x_off+w] = img
+
+    padded = padded / 255.0
+
+    return torch.tensor(padded, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
 
 def preprocess_image(img):
     img = img.convert("L")
